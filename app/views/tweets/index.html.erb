@@ -1,31 +1,68 @@
-<p id="notice"><%= notice %></p>
-
+<div class = "container">
 <h1>Tweets</h1>
+<% if current_user.present? %>
+  <%= render 'form', tweet: @tweet %>
+<% end %>
+<table>
 
 <table>
-  <thead>
-    <tr>
-      <th>Content</th>
-      <th>Picture</th>
-      <th>Retweet number</th>
-      <th>Likes number</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
+<thead>
+  <tr>
+    <th >Avatar</th>
+    <th>Content</th>
+    <th><div class="ml-2">Likes</div></th>
+    <th></th>
+    <th><% if current_user.present? %>
+            <div class="ml-2">Retweet</div>
+        <% end %>
+    </th>
+    <th>Tweet Date</th>
+    <th colspan="3"></th>
+  </tr>
+</thead>
 
-  <tbody>
-    <% @tweets.each do |tweet| %>
-      <tr>
-        <td><%= tweet.content %></td>
-        <td><%= tweet.picture %></td>
-        <td><%= tweet.retweet_number %></td>
-        <td><%= tweet.likes_number %></td>
-        <td><%= link_to 'Show', tweet %></td>
-        <td><%= link_to 'Edit', edit_tweet_path(tweet) %></td>
-        <td><%= link_to 'Destroy', tweet, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
+<tbody>
+  <% @tweets.each do |tweet| %>
+    <tr>
+      <td><div class="mt-3">
+            <div class="mt-1 text-center"><%= tweet.user_id %></div>
+          </div>
+      </td>
+      <td><div class = "container">
+          <%= tweet.content %></td>
+          </div>
+      <td> <div class="d-flex flex-row ml-2">
+              <div class="mr-4"><%=tweet.likes.count %></div>
+              <div class="mr-3">
+              <% if current_user.present? %>
+                <% pre_like = tweet.likes.find { |like| like.user_id == current_user.id }%>
+                <% if pre_like %>
+                   <div ><i class="far fa-thumbs-up"></i><div>
+                <% end %>
+              <% end %>
+           </div>
+      </td>
+      <td>
+        <div>
+          <% if current_user.present? %>
+            <% pre_like = tweet.likes.find { |like| like.user_id == current_user.id }%>
+            <% if pre_like %>
+              <div><%= link_to 'Unlike',tweet_like_path(tweet, pre_like), method: :delete, class: "btn btn-primary" %></div>
+            <% else %>
+              <div><%= link_to 'Like',tweet_likes_path(tweet), method: :post, class: "btn btn-primary"%></div>
+            <% end %>
+          <% end %>
+              </div>
+        </div>
+      </td> 
+      <td>
+        <% if current_user.present? && current_user.id != tweet.user_id %>
+          <%= link_to "Retweet", {:controller => :tweets, :action => :retweet, :id => tweet.id, :content => tweet.content }, method: :post,  class: "btn btn-primary"%>
+        <% end %>
+      </td>
+    </tr>
+  <% end %>
+</tbody>
 </table>
 
 <br>
