@@ -66,16 +66,6 @@ class TweetsController < ApplicationController
     end
   end
 
-  def retweet
-    @user = current_user.id
-    @tweet = params[:id]
-    @content = params[:content]
-    retweet_params = {user_id: @user, content: @content, retweet_id: @tweet}
-    @retweet = Tweet.create(retweet_params)
-    @retweet.save!
-    redirect_to root_path
-  end
-
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_tweet
