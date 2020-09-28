@@ -55,11 +55,6 @@
               </div>
         </div>
       </td> 
-      <td>
-        <% if current_user.present? && current_user.id != tweet.user_id %>
-          <%= link_to "Retweet", {:controller => :tweets, :action => :retweet, :id => tweet.id, :content => tweet.content }, method: :post,  class: "btn btn-primary"%>
-        <% end %>
-      </td>
     </tr>
   <% end %>
 </tbody>
