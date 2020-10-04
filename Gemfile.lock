@@ -1,4 +1,13 @@
 GIT
+  remote: https://github.com/activerecord-hackery/ransack.git
+  revision: c9cc20de9e0f7bab92e0579c85bed64d614d23de
+  specs:
+    ransack (2.3.2)
+      activerecord (>= 5.2.1)
+      activesupport (>= 5.2.1)
+      i18n
+
+GIT
   remote: https://github.com/kaminari/kaminari
   revision: cd8601cc42b67267c15a13174bc2fc9bd5de1032
   specs:
@@ -258,6 +267,7 @@ DEPENDENCIES
   pg
   puma (~> 4.1)
   rails (~> 6.0.3, >= 6.0.3.3)
+  ransack!
   sass-rails (>= 6)
   selenium-webdriver
   spring

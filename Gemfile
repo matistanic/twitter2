@@ -24,6 +24,7 @@ gem 'jbuilder', '~> 2.7'
 # gem 'bcrypt', '~> 3.1.7'
 gem 'devise'
 gem 'kaminari', :git => 'https://github.com/kaminari/kaminari'
+gem 'ransack', github: 'activerecord-hackery/ransack'
 # Use Active Storage variant
 # gem 'image_processing', '~> 1.2'
 gem 'bootstrap', '~> 4.1.1'

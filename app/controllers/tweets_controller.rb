@@ -4,7 +4,8 @@ class TweetsController < ApplicationController
   # GET /tweets
   # GET /tweets.json
   def index
-    @tweets = Tweet.order('created_at DESC').page(params[:page]).per(50)
+    @q = Tweet.ransack(params[:q])
+    @tweets = @q.result(distinct: true).order('created_at DESC').page(params[:page]).per(50)
     @tweet = Tweet.new
     @like = Like.new
   end
