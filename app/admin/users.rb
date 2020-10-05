@@ -22,6 +22,12 @@ ActiveAdmin.register User do
     column "Tweets" do |post|
       post.tweets.count
     end
+    column "Retweets" do |post|
+      post.tweets.count
+    end
+    column "Follows" do |post|
+      post.tweets.count
+    end
     User.column_names.each do |c|
       column c.to_sym
     end

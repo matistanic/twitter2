@@ -31,6 +31,20 @@ class TweetsController < ApplicationController
   def create
     @tweet = Tweet.new(tweet_params)
     @tweet.user = current_user
+    @tweet.content = @tweet.content.split(" ").map(&:to_s)
+    @content = JSON.parse(@tweet.content)
+    @content.each do |hash|
+      if hash.include?('#')
+        @name_link = hash.remove("#")
+        @new_link = "https://es.wikipedia.org/wiki/#{@name_link}"
+        @content[@content.index(hash)] = @new_link
+        @tweet.content = @content.join(' ')
+      else
+        @new_content = @content.join(' ')
+        @tweet.content = @new_content
+      end     
+    end
+
 
     respond_to do |format|
       if @tweet.save
